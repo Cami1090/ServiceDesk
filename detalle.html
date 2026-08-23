@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServiceDesk · Detalle de solicitud</title>
+</head>
+<body>
+
+  <header>
+    <p>ServiceDesk</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="registro.html">Registrar solicitud</a></li>
+        <li><a href="asignacion.html">Asignación</a></li>
+        <li><a href="seguimiento.html">Seguimiento</a></li>
+        <li><a href="detalle.html">Detalle de solicitud</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section>
+      <h1>Detalle de la solicitud SD-002</h1>
+      <p>Trazabilidad completa desde el reporte hasta el cierre.</p>
+    </section>
+
+    <section>
+      <h2>Datos generales</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row">Solicitante</th>
+            <td>Luis Peña</td>
+          </tr>
+          <tr>
+            <th scope="row">Categoría</th>
+            <td>Software</td>
+          </tr>
+          <tr>
+            <th scope="row">Prioridad</th>
+            <td>Media</td>
+          </tr>
+          <tr>
+            <th scope="row">Responsable</th>
+            <td>Camilo Forero</td>
+          </tr>
+          <tr>
+            <th scope="row">Estado actual</th>
+            <td>En proceso</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Historial de la solicitud</h2>
+      <ol>
+        <li>Solicitud reportada por Luis Peña el 2026-08-18</li>
+        <li>Asignada a Camilo Forero el 2026-08-19</li>
+        <li>Diagnóstico iniciado el 2026-08-20</li>
+        <li>En espera de confirmación del usuario</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Agregar avance</h2>
+      <form action="#" method="post">
+
+        <label for="comentario">Comentario o avance</label>
+        <textarea id="comentario" name="comentario" rows="4" required></textarea>
+
+        <label for="nuevo-estado">Actualizar estado</label>
+        <select id="nuevo-estado" name="nuevo-estado" required>
+          <option value="abierta">Abierta</option>
+          <option value="en-proceso">En proceso</option>
+          <option value="resuelta">Resuelta</option>
+          <option value="cerrada">Cerrada</option>
+        </select>
+
+        <button type="submit">Guardar avance</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Cierre de la solicitud</h2>
+      <form action="#" method="post">
+
+        <label for="solucion">Solución aplicada</label>
+        <textarea id="solucion" name="solucion" rows="4" required></textarea>
+
+        <label for="fecha-cierre">Fecha de cierre</label>
+        <input type="date" id="fecha-cierre" name="fecha-cierre" required>
+
+        <label for="satisfaccion">Satisfacción del usuario</label>
+        <select id="satisfaccion" name="satisfaccion">
+          <option value="">Selecciona una opción</option>
+          <option value="satisfecho">Satisfecho</option>
+          <option value="neutral">Neutral</option>
+          <option value="insatisfecho">Insatisfecho</option>
+        </select>
+
+        <button type="submit">Cerrar solicitud</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>ServiceDesk · Juan Esteban Arias y Camilo Forero</p>
+  </footer>
+
+</body>
+</html>
