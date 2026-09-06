@@ -9,7 +9,9 @@
 <body>
 
   <header>
-    <p>ServiceDesk</p>
+    <div class="brand-group">
+      <p>ServiceDesk</p>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
@@ -33,57 +35,73 @@
 
         <fieldset>
           <legend>Datos del solicitante</legend>
-
-          <label for="nombre">Nombre completo</label>
-          <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre ">
-
-          <label for="correo">Correo electrónico</label>
-          <input type="email" id="correo" name="correo" required placeholder="Ingrese su correo electronico">
-
-          <label for="telefono">Teléfono</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su telefono">
-
-          <label for="area">Área o dependencia</label>
-          <input type="text" id="area" name="area" placeholder="Ingrese su area o dependencia">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre ">
+            </div>
+            <div class="form-group">
+              <label for="correo">Correo electrónico</label>
+              <input type="email" id="correo" name="correo" required placeholder="Ingrese su correo electronico">
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su telefono">
+            </div>
+            <div class="form-group">
+              <label for="area">Área o dependencia</label>
+              <input type="text" id="area" name="area" placeholder="Ingrese su area o dependencia">
+            </div>
+          </div>
         </fieldset>
 
         <fieldset>
           <legend>Datos de la solicitud</legend>
-
-          <label for="titulo">Título de la solicitud</label>
-          <input type="text" id="titulo" name="titulo" required>
-
-          <label for="categoria">Categoría</label>
-          <select id="categoria" name="categoria" required>
-            <option value="">Selecciona una categoría</option>
-            <option value="hardware">Hardware</option>
-            <option value="software">Software</option>
-            <option value="red">Red</option>
-            <option value="cuentas">Cuentas y accesos</option>
-            <option value="otro">Otro</option>
-          </select>
-
-          <label for="prioridad">Prioridad</label>
-          <select id="prioridad" name="prioridad" required>
-            <option value="">Selecciona una prioridad</option>
-            <option value="baja">Baja</option>
-            <option value="media">Media</option>
-            <option value="alta">Alta</option>
-            <option value="urgente">Urgente</option>
-          </select>
-
-          <label for="fecha">Fecha del reporte</label>
-          <input type="date" id="fecha" name="fecha" required>
-
-          <label for="descripcion">Descripción del problema o requerimiento</label>
-          <textarea id="descripcion" name="descripcion" rows="5" required></textarea>
-
-          <label for="adjunto">Adjuntar evidencia</label>
-          <input type="file" id="adjunto" name="adjunto">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="titulo">Título de la solicitud</label>
+              <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+              <label for="categoria">Categoría</label>
+              <select id="categoria" name="categoria" required>
+                <option value="">Selecciona una categoría</option>
+                <option value="hardware">Hardware</option>
+                <option value="software">Software</option>
+                <option value="red">Red</option>
+                <option value="cuentas">Cuentas y accesos</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prioridad">Prioridad</label>
+              <select id="prioridad" name="prioridad" required>
+                <option value="">Selecciona una prioridad</option>
+                <option value="baja">Baja</option>
+                <option value="media">Media</option>
+                <option value="alta">Alta</option>
+                <option value="urgente">Urgente</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label for="fecha">Fecha del reporte</label>
+              <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="descripcion">Descripción del problema o requerimiento</label>
+              <textarea id="descripcion" name="descripcion" rows="5" required></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label for="adjunto">Adjuntar evidencia</label>
+              <input type="file" id="adjunto" name="adjunto">
+            </div>
+          </div>
         </fieldset>
 
-        <button type="submit">Registrar solicitud</button>
-        <button type="reset">Limpiar formulario</button>
+        <div class="acciones-form">
+          <button type="submit">Registrar solicitud</button>
+          <button type="reset">Limpiar formulario</button>
+        </div>
 
       </form>
     </section>

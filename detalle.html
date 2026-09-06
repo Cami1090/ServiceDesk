@@ -9,7 +9,9 @@
 <body>
 
   <header>
-    <p>ServiceDesk</p>
+    <div class="brand-group">
+      <p>ServiceDesk</p>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
@@ -30,30 +32,32 @@
 
     <section>
       <h2>Datos generales</h2>
-      <table>
-        <tbody>
-          <tr>
-            <th scope="row">Solicitante</th>
-            <td>Luis Peña</td>
-          </tr>
-          <tr>
-            <th scope="row">Categoría</th>
-            <td>Software</td>
-          </tr>
-          <tr>
-            <th scope="row">Prioridad</th>
-            <td>Media</td>
-          </tr>
-          <tr>
-            <th scope="row">Responsable</th>
-            <td>Camilo Forero</td>
-          </tr>
-          <tr>
-            <th scope="row">Estado actual</th>
-            <td>En proceso</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <tbody>
+            <tr>
+              <th scope="row">Solicitante</th>
+              <td>Luis Peña</td>
+            </tr>
+            <tr>
+              <th scope="row">Categoría</th>
+              <td>Software</td>
+            </tr>
+            <tr>
+              <th scope="row">Prioridad</th>
+              <td>Media</td>
+            </tr>
+            <tr>
+              <th scope="row">Responsable</th>
+              <td>Camilo Forero</td>
+            </tr>
+            <tr>
+              <th scope="row">Estado actual</th>
+              <td>En proceso</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section>
@@ -69,41 +73,58 @@
     <section>
       <h2>Agregar avance</h2>
       <form action="#" method="post">
-
-        <label for="comentario">Comentario o avance</label>
-        <textarea id="comentario" name="comentario" rows="4" required></textarea>
-
-        <label for="nuevo-estado">Actualizar estado</label>
-        <select id="nuevo-estado" name="nuevo-estado" required>
-          <option value="abierta">Abierta</option>
-          <option value="en-proceso">En proceso</option>
-          <option value="resuelta">Resuelta</option>
-          <option value="cerrada">Cerrada</option>
-        </select>
-
-        <button type="submit">Guardar avance</button>
+        <fieldset>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="comentario">Comentario o avance</label>
+              <textarea id="comentario" name="comentario" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="nuevo-estado">Actualizar estado</label>
+              <select id="nuevo-estado" name="nuevo-estado" required>
+                <option value="abierta">Abierta</option>
+                <option value="en-proceso">En proceso</option>
+                <option value="resuelta">Resuelta</option>
+                <option value="cerrada">Cerrada</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        
+        <div class="acciones-form">
+          <button type="submit">Guardar avance</button>
+        </div>
       </form>
     </section>
 
     <section>
       <h2>Cierre de la solicitud</h2>
       <form action="#" method="post">
-
-        <label for="solucion">Solución aplicada</label>
-        <textarea id="solucion" name="solucion" rows="4" required></textarea>
-
-        <label for="fecha-cierre">Fecha de cierre</label>
-        <input type="date" id="fecha-cierre" name="fecha-cierre" required>
-
-        <label for="satisfaccion">Satisfacción del usuario</label>
-        <select id="satisfaccion" name="satisfaccion">
-          <option value="">Selecciona una opción</option>
-          <option value="satisfecho">Satisfecho</option>
-          <option value="neutral">Neutral</option>
-          <option value="insatisfecho">Insatisfecho</option>
-        </select>
-
-        <button type="submit">Cerrar solicitud</button>
+        <fieldset>
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="solucion">Solución aplicada</label>
+              <textarea id="solucion" name="solucion" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="fecha-cierre">Fecha de cierre</label>
+              <input type="date" id="fecha-cierre" name="fecha-cierre" required>
+            </div>
+            <div class="form-group">
+              <label for="satisfaccion">Satisfacción del usuario</label>
+              <select id="satisfaccion" name="satisfaccion">
+                <option value="">Selecciona una opción</option>
+                <option value="satisfecho">Satisfecho</option>
+                <option value="neutral">Neutral</option>
+                <option value="insatisfecho">Insatisfecho</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+        
+        <div class="acciones-form">
+          <button type="submit">Cerrar solicitud</button>
+        </div>
       </form>
     </section>
 

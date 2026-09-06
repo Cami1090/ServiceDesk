@@ -9,7 +9,9 @@
 <body>
 
   <header>
-    <p>ServiceDesk</p>
+    <div class="brand-group">
+      <p>ServiceDesk</p>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
@@ -30,70 +32,84 @@
 
     <section>
       <h2>Solicitudes sin asignar</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Título</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Prioridad</th>
-            <th scope="col">Fecha</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>SD-001</td>
-            <td>Equipo no enciende</td>
-            <td>Hardware</td>
-            <td>Alta</td>
-            <td>2026-08-20</td>
-          </tr>
-          <tr>
-            <td>SD-004</td>
-            <td>Acceso a correo bloqueado</td>
-            <td>Cuentas y accesos</td>
-            <td>Urgente</td>
-            <td>2026-08-22</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Título</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Prioridad</th>
+              <th scope="col">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SD-001</td>
+              <td>Equipo no enciende</td>
+              <td>Hardware</td>
+              <td>Alta</td>
+              <td>2026-08-20</td>
+            </tr>
+            <tr>
+              <td>SD-004</td>
+              <td>Acceso a correo bloqueado</td>
+              <td>Cuentas y accesos</td>
+              <td>Urgente</td>
+              <td>2026-08-22</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section>
       <h2>Asignar solicitud</h2>
       <form action="#" method="post">
-
-        <label for="id-solicitud">Número de solicitud</label>
-        <input type="text" id="id-solicitud" name="id-solicitud" required>
-
-        <label for="responsable">Técnico responsable</label>
-        <select id="responsable" name="responsable" required>
-          <option value="">Selecciona un responsable</option>
-          <option value="juan">Juan Esteban Arias</option>
-          <option value="camilo">Camilo Forero</option>
-          <option value="soporte-nivel2">Soporte Nivel 2</option>
-        </select>
-
-        <label for="equipo">Equipo o área asignada</label>
-        <input type="text" id="equipo" name="equipo">
-
-        <label for="fecha-asignacion">Fecha de asignación</label>
-        <input type="date" id="fecha-asignacion" name="fecha-asignacion" required>
-
-        <label for="prioridad-asignada">Prioridad confirmada</label>
-        <select id="prioridad-asignada" name="prioridad-asignada">
-          <option value="baja">Baja</option>
-          <option value="media">Media</option>
-          <option value="alta">Alta</option>
-          <option value="urgente">Urgente</option>
-        </select>
-
-        <label for="notas-asignacion">Notas de asignación</label>
-        <textarea id="notas-asignacion" name="notas-asignacion" rows="4"></textarea>
-
-        <button type="submit">Confirmar asignación</button>
-        <button type="reset">Limpiar formulario</button>
-
+        <fieldset>
+          <legend>Detalles de asignación</legend>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="id-solicitud">Número de solicitud</label>
+              <input type="text" id="id-solicitud" name="id-solicitud" required>
+            </div>
+            <div class="form-group">
+              <label for="responsable">Técnico responsable</label>
+              <select id="responsable" name="responsable" required>
+                <option value="">Selecciona un responsable</option>
+                <option value="juan">Juan Esteban Arias</option>
+                <option value="camilo">Camilo Forero</option>
+                <option value="soporte-nivel2">Soporte Nivel 2</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="equipo">Equipo o área asignada</label>
+              <input type="text" id="equipo" name="equipo">
+            </div>
+            <div class="form-group">
+              <label for="fecha-asignacion">Fecha de asignación</label>
+              <input type="date" id="fecha-asignacion" name="fecha-asignacion" required>
+            </div>
+            <div class="form-group">
+              <label for="prioridad-asignada">Prioridad confirmada</label>
+              <select id="prioridad-asignada" name="prioridad-asignada">
+                <option value="baja">Baja</option>
+                <option value="media">Media</option>
+                <option value="alta">Alta</option>
+                <option value="urgente">Urgente</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label for="notas-asignacion">Notas de asignación</label>
+              <textarea id="notas-asignacion" name="notas-asignacion" rows="4"></textarea>
+            </div>
+          </div>
+        </fieldset>
+        
+        <div class="acciones-form">
+          <button type="submit">Confirmar asignación</button>
+          <button type="reset">Limpiar formulario</button>
+        </div>
       </form>
     </section>
 

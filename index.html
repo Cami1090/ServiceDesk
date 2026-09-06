@@ -9,8 +9,10 @@
 <body>
 
   <header>
-    <p>ServiceDesk</p>
-    <p>Registro, asignación y seguimiento de solicitudes de soporte</p>
+    <div class="brand-group">
+      <p>ServiceDesk</p>
+      <p>Registro, asignación y seguimiento de solicitudes de soporte</p>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
@@ -32,7 +34,7 @@
 
     <section>
       <h2>Qué permite hacer la plataforma</h2>
-      <ul>
+      <ul class="grid-cards">
         <li>Registrar una nueva solicitud de soporte</li>
         <li>Asignar la solicitud a un técnico o equipo responsable</li>
         <li>Consultar el estado y el historial de cada solicitud</li>
@@ -53,40 +55,42 @@
 
     <section>
       <h2>Resumen de solicitudes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Solicitante</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Responsable</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>SD-001</td>
-            <td>Ana Torres</td>
-            <td>Hardware</td>
-            <td>Abierta</td>
-            <td>Sin asignar</td>
-          </tr>
-          <tr>
-            <td>SD-002</td>
-            <td>Luis Peña</td>
-            <td>Software</td>
-            <td>En proceso</td>
-            <td>Camilo Forero</td>
-          </tr>
-          <tr>
-            <td>SD-003</td>
-            <td>Marta Gil</td>
-            <td>Red</td>
-            <td>Cerrada</td>
-            <td>Juan Esteban Arias</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Responsable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SD-001</td>
+              <td>Ana Torres</td>
+              <td>Hardware</td>
+              <td>Abierta</td>
+              <td>Sin asignar</td>
+            </tr>
+            <tr>
+              <td>SD-002</td>
+              <td>Luis Peña</td>
+              <td>Software</td>
+              <td>En proceso</td>
+              <td>Camilo Forero</td>
+            </tr>
+            <tr>
+              <td>SD-003</td>
+              <td>Marta Gil</td>
+              <td>Red</td>
+              <td>Cerrada</td>
+              <td>Juan Esteban Arias</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
   </main>

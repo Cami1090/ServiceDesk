@@ -9,7 +9,9 @@
 <body>
 
   <header>
-    <p>ServiceDesk</p>
+    <div class="brand-group">
+      <p>ServiceDesk</p>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
@@ -30,77 +32,81 @@
 
     <section>
       <h2>Filtrar solicitudes</h2>
-      <form action="#" method="get">
-
-        <label for="filtro-estado">Estado</label>
-        <select id="filtro-estado" name="estado">
-          <option value="todas">Todas</option>
-          <option value="abierta">Abierta</option>
-          <option value="en-proceso">En proceso</option>
-          <option value="resuelta">Resuelta</option>
-          <option value="cerrada">Cerrada</option>
-        </select>
-
-        <label for="filtro-categoria">Categoría</label>
-        <select id="filtro-categoria" name="categoria">
-          <option value="todas">Todas</option>
-          <option value="hardware">Hardware</option>
-          <option value="software">Software</option>
-          <option value="red">Red</option>
-          <option value="cuentas">Cuentas y accesos</option>
-        </select>
-
-        <label for="filtro-responsable">Responsable</label>
-        <input type="text" id="filtro-responsable" name="responsable">
-
+      <form action="#" method="get" class="filtros-flex">
+        <div class="form-group">
+          <label for="filtro-estado">Estado</label>
+          <select id="filtro-estado" name="estado">
+            <option value="todas">Todas</option>
+            <option value="abierta">Abierta</option>
+            <option value="en-proceso">En proceso</option>
+            <option value="resuelta">Resuelta</option>
+            <option value="cerrada">Cerrada</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="filtro-categoria">Categoría</label>
+          <select id="filtro-categoria" name="categoria">
+            <option value="todas">Todas</option>
+            <option value="hardware">Hardware</option>
+            <option value="software">Software</option>
+            <option value="red">Red</option>
+            <option value="cuentas">Cuentas y accesos</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="filtro-responsable">Responsable</label>
+          <input type="text" id="filtro-responsable" name="responsable">
+        </div>
         <button type="submit">Filtrar</button>
       </form>
     </section>
 
     <section>
       <h2>Listado de solicitudes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Solicitante</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Responsable</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Última actualización</th>
-            <th scope="col">Detalle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>SD-001</td>
-            <td>Ana Torres</td>
-            <td>Hardware</td>
-            <td>Sin asignar</td>
-            <td>Abierta</td>
-            <td>2026-08-20</td>
-            <td><a href="detalle.html">Ver</a></td>
-          </tr>
-          <tr>
-            <td>SD-002</td>
-            <td>Luis Peña</td>
-            <td>Software</td>
-            <td>Camilo Forero</td>
-            <td>En proceso</td>
-            <td>2026-08-21</td>
-            <td><a href="detalle.html">Ver</a></td>
-          </tr>
-          <tr>
-            <td>SD-003</td>
-            <td>Marta Gil</td>
-            <td>Red</td>
-            <td>Juan Esteban Arias</td>
-            <td>Cerrada</td>
-            <td>2026-08-19</td>
-            <td><a href="detalle.html">Ver</a></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Responsable</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Última actualización</th>
+              <th scope="col">Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SD-001</td>
+              <td>Ana Torres</td>
+              <td>Hardware</td>
+              <td>Sin asignar</td>
+              <td>Abierta</td>
+              <td>2026-08-20</td>
+              <td><a href="detalle.html">Ver</a></td>
+            </tr>
+            <tr>
+              <td>SD-002</td>
+              <td>Luis Peña</td>
+              <td>Software</td>
+              <td>Camilo Forero</td>
+              <td>En proceso</td>
+              <td>2026-08-21</td>
+              <td><a href="detalle.html">Ver</a></td>
+            </tr>
+            <tr>
+              <td>SD-003</td>
+              <td>Marta Gil</td>
+              <td>Red</td>
+              <td>Juan Esteban Arias</td>
+              <td>Cerrada</td>
+              <td>2026-08-19</td>
+              <td><a href="detalle.html">Ver</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
   </main>
