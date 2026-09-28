@@ -32,7 +32,7 @@
 
     <section>
       <h2>Filtrar solicitudes</h2>
-      <form action="#" method="get" class="filtros-flex">
+      <form id="form-filtros" action="#" method="get" class="filtros-flex">
         <div class="form-group">
           <label for="filtro-estado">Estado</label>
           <select id="filtro-estado" name="estado">
@@ -54,56 +54,43 @@
           </select>
         </div>
         <div class="form-group">
+          <label for="filtro-prioridad">Prioridad</label>
+          <select id="filtro-prioridad" name="prioridad">
+            <option value="todas">Todas</option>
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+            <option value="urgente">Urgente</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label for="filtro-responsable">Responsable</label>
-          <input type="text" id="filtro-responsable" name="responsable">
+          <input type="text" id="filtro-responsable" name="responsable" placeholder="Buscar...">
         </div>
         <button type="submit">Filtrar</button>
+        <button type="button" id="btn-limpiar-filtros" class="btn-secundario">Limpiar</button>
       </form>
     </section>
 
     <section>
       <h2>Listado de solicitudes</h2>
+      <p id="contador-resultados" class="contador-resultados"></p>
       <div class="table-container">
-        <table>
+        <table class="tabla-cards">
           <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Solicitante</th>
               <th scope="col">Categoría</th>
+              <th scope="col">Prioridad</th>
               <th scope="col">Responsable</th>
               <th scope="col">Estado</th>
               <th scope="col">Última actualización</th>
               <th scope="col">Detalle</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>SD-001</td>
-              <td>Ana Torres</td>
-              <td>Hardware</td>
-              <td>Sin asignar</td>
-              <td>Abierta</td>
-              <td>2026-08-20</td>
-              <td><a href="detalle.html">Ver</a></td>
-            </tr>
-            <tr>
-              <td>SD-002</td>
-              <td>Luis Peña</td>
-              <td>Software</td>
-              <td>Camilo Forero</td>
-              <td>En proceso</td>
-              <td>2026-08-21</td>
-              <td><a href="detalle.html">Ver</a></td>
-            </tr>
-            <tr>
-              <td>SD-003</td>
-              <td>Marta Gil</td>
-              <td>Red</td>
-              <td>Juan Esteban Arias</td>
-              <td>Cerrada</td>
-              <td>2026-08-19</td>
-              <td><a href="detalle.html">Ver</a></td>
-            </tr>
+          <tbody id="tbody-solicitudes">
+            <!-- Contenido generado por seguimiento.js -->
           </tbody>
         </table>
       </div>
@@ -115,5 +102,7 @@
     <p>ServiceDesk · Juan Esteban Arias y Camilo Forero</p>
   </footer>
 
+  <script src="data.js"></script>
+  <script src="seguimiento.js"></script>
 </body>
 </html>

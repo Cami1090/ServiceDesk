@@ -31,14 +31,14 @@
     </section>
 
     <section>
-      <form action="#" method="post">
+      <form id="form-registro" action="#" method="post">
 
         <fieldset>
           <legend>Datos del solicitante</legend>
           <div class="form-grid">
             <div class="form-group">
               <label for="nombre">Nombre completo</label>
-              <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre ">
+              <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre">
             </div>
             <div class="form-group">
               <label for="correo">Correo electrónico</label>
@@ -104,6 +104,7 @@
         </div>
 
       </form>
+      <p id="mensaje-registro" class="mensaje mensaje-exito" hidden></p>
     </section>
 
   </main>
@@ -112,5 +113,7 @@
     <p>ServiceDesk · Juan Esteban Arias y Camilo Forero</p>
   </footer>
 
+  <script src="data.js"></script>
+  <script src="registro.js"></script>
 </body>
 </html>
