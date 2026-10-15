@@ -1,6 +1,8 @@
 /* ===========================================================
-   seguimiento.js · Render + filtros dinámicos
+   seguimiento.js · Render + filtros dinámicos (módulo ES)
    =========================================================== */
+
+import { cargarSolicitudes, etiqueta } from './data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const tbody             = document.getElementById('tbody-solicitudes');
@@ -57,19 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
     contador.textContent = filtradas.length + ' de ' + solicitudes.length + ' solicitudes';
   }
 
-  /* Submit (botón Filtrar) */
   formFiltros.addEventListener('submit', e => {
     e.preventDefault();
     renderizar();
   });
 
-  /* Filtrado en vivo */
   [filtroEstado, filtroCategoria, filtroPrioridad].forEach(el => {
     el.addEventListener('change', renderizar);
   });
   filtroResponsable.addEventListener('input', renderizar);
 
-  /* Limpiar */
   btnLimpiar.addEventListener('click', () => {
     formFiltros.reset();
     renderizar();

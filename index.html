@@ -19,9 +19,13 @@
         <li><a href="registro.html">Registrar solicitud</a></li>
         <li><a href="asignacion.html">Asignación</a></li>
         <li><a href="seguimiento.html">Seguimiento</a></li>
-        <li><a href="detalle.html">Detalle de solicitud</a></li>
       </ul>
     </nav>
+    <div class="auth-panel">
+      <span id="auth-usuario" class="auth-usuario" hidden></span>
+      <button id="auth-login" class="btn-auth" type="button">Iniciar sesión con Google</button>
+      <button id="auth-logout" class="btn-auth btn-auth-salir" type="button" hidden>Cerrar sesión</button>
+    </div>
   </header>
 
   <main>
@@ -29,7 +33,11 @@
     <section>
       <h1>Trazabilidad completa de cada solicitud de soporte</h1>
       <p>Desde el reporte inicial hasta la solución y el cierre.</p>
-      <img src="assets/servicedesk-hero.png" >
+    </section>
+
+    <section>
+      <h2>Resumen general</h2>
+      <ul class="grid-cards stats-cards" id="stats-cards"></ul>
     </section>
 
     <section>
@@ -54,42 +62,26 @@
     </section>
 
     <section>
-      <h2>Resumen de solicitudes</h2>
+      <h2>Solicitudes recientes</h2>
+      <p id="contador-index" class="contador-resultados"></p>
       <div class="table-container">
-        <table>
+        <table class="tabla-cards">
           <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Solicitante</th>
               <th scope="col">Categoría</th>
+              <th scope="col">Prioridad</th>
               <th scope="col">Estado</th>
               <th scope="col">Responsable</th>
+              <th scope="col">Detalle</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>SD-001</td>
-              <td>Ana Torres</td>
-              <td>Hardware</td>
-              <td>Abierta</td>
-              <td>Sin asignar</td>
-            </tr>
-            <tr>
-              <td>SD-002</td>
-              <td>Luis Peña</td>
-              <td>Software</td>
-              <td>En proceso</td>
-              <td>Camilo Forero</td>
-            </tr>
-            <tr>
-              <td>SD-003</td>
-              <td>Marta Gil</td>
-              <td>Red</td>
-              <td>Cerrada</td>
-              <td>Juan Esteban Arias</td>
-            </tr>
-          </tbody>
+          <tbody id="tbody-recientes"></tbody>
         </table>
+      </div>
+      <div class="acciones-form">
+        <a href="seguimiento.html" class="btn-link">Ver todas las solicitudes</a>
       </div>
     </section>
 
@@ -99,5 +91,8 @@
     <p>ServiceDesk · Juan Esteban Arias y Camilo Forero</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="index.js"></script>
 </body>
 </html>

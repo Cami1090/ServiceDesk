@@ -25,6 +25,10 @@ body {
   min-height: 100vh;
 }
 
+/* ============================= */
+/* HEADER                        */
+/* ============================= */
+
 header {
   background-color: var(--bg-panel);
   border-bottom: 1px solid var(--border);
@@ -70,9 +74,14 @@ nav a {
   transition: color 0.2s;
 }
 
-nav a:hover, nav a:focus-visible {
+nav a:hover,
+nav a:focus-visible {
   color: var(--primary);
 }
+
+/* ============================= */
+/* LAYOUT PRINCIPAL              */
+/* ============================= */
 
 main {
   width: 100%;
@@ -110,6 +119,10 @@ p {
   margin: 0 0 16px 0;
 }
 
+/* ============================= */
+/* LISTAS Y TARJETAS              */
+/* ============================= */
+
 .grid-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -127,13 +140,15 @@ p {
   margin: 0;
 }
 
-ul:not(.grid-cards), ol {
+ul:not(.grid-cards),
+ol {
   color: var(--text-muted);
   padding-left: 20px;
   margin-bottom: 16px;
 }
 
-ul:not(.grid-cards) li, ol li {
+ul:not(.grid-cards) li,
+ol li {
   margin-bottom: 6px;
 }
 
@@ -144,6 +159,10 @@ img {
   border: 1px solid var(--border);
   margin-top: 16px;
 }
+
+/* ============================= */
+/* TABLAS                        */
+/* ============================= */
 
 .table-container {
   overflow-x: auto;
@@ -158,7 +177,8 @@ table {
   font-size: 13px;
 }
 
-th, td {
+th,
+td {
   padding: 12px 16px;
   text-align: left;
   border-bottom: 1px solid var(--border);
@@ -173,6 +193,10 @@ th {
 tr:hover td {
   background-color: #fdfdfd;
 }
+
+/* ============================= */
+/* FORMULARIOS                   */
+/* ============================= */
 
 form {
   margin-top: 16px;
@@ -264,11 +288,16 @@ textarea {
   min-height: 80px;
 }
 
+/* ============================= */
+/* BOTONES                       */
+/* ============================= */
+
 .acciones-form {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 16px;
+  align-items: center;
 }
 
 button {
@@ -284,7 +313,8 @@ button {
   transition: background-color 0.2s;
 }
 
-button:hover, button:focus-visible {
+button:hover,
+button:focus-visible {
   background-color: var(--primary-hover);
 }
 
@@ -309,6 +339,95 @@ button[type="reset"]:hover {
   background-color: #e5f0ff;
 }
 
+.btn-mini {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-eliminar {
+  background-color: transparent;
+  color: #da1e28;
+  border: 1px solid #da1e28;
+}
+
+.btn-eliminar:hover,
+.btn-eliminar:focus-visible {
+  background-color: #fff1f1;
+}
+
+.btn-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.btn-link:hover,
+.btn-link:focus-visible {
+  background-color: var(--primary-hover);
+}
+
+/* ============================= */
+/* AUTH PANEL (header)           */
+/* ============================= */
+
+.auth-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.auth-usuario {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-auth {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-auth:hover,
+.btn-auth:focus-visible {
+  background-color: #e5f0ff;
+}
+
+.btn-auth:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.btn-auth-salir {
+  color: #da1e28;
+  border-color: #da1e28;
+}
+
+.btn-auth-salir:hover,
+.btn-auth-salir:focus-visible {
+  background-color: #fff1f1;
+}
+
+/* ============================= */
+/* FOOTER                        */
+/* ============================= */
+
 footer {
   text-align: center;
   padding: 24px;
@@ -322,7 +441,9 @@ footer p {
   margin: 0;
 }
 
-/* ===== Contador y mensajes ===== */
+/* ============================= */
+/* CONTADOR Y MENSAJES           */
+/* ============================= */
 
 .contador-resultados {
   margin: 0 0 12px 0;
@@ -349,6 +470,58 @@ footer p {
   font-style: italic;
   padding: 24px 16px;
 }
+
+#lista-historial small {
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+/* ============================= */
+/* TARJETAS DE ESTADÍSTICAS      */
+/* ============================= */
+
+.stats-cards {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  border-left: 4px solid var(--border) !important;
+  padding: 16px 18px !important;
+}
+
+.stat-valor {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-main);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+.stat-total         { border-left-color: var(--primary) !important; }
+.stat-total .stat-valor         { color: var(--primary); }
+
+.stat-abierta       { border-left-color: #0f62fe !important; }
+.stat-abierta .stat-valor       { color: #0f62fe; }
+
+.stat-proceso       { border-left-color: #f1c21b !important; }
+.stat-proceso .stat-valor       { color: #b28600; }
+
+.stat-cerrada       { border-left-color: #24a148 !important; }
+.stat-cerrada .stat-valor       { color: #24a148; }
+
+.stat-sin-asignar   { border-left-color: #da1e28 !important; }
+.stat-sin-asignar .stat-valor   { color: #da1e28; }
 
 /* ============================= */
 /* RESPONSIVE                    */
@@ -393,6 +566,15 @@ footer p {
 
   section {
     padding: 16px;
+  }
+
+  .auth-panel {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .auth-usuario {
+    max-width: 100%;
   }
 
   /* ===== Tablas que se convierten en tarjetas ===== */
@@ -465,24 +647,22 @@ footer p {
   .tabla-cards .sin-resultados td::before {
     content: none;
   }
+
+  .tabla-cards td[data-label="Acciones"] {
+    justify-content: flex-end;
+  }
+
+  .tabla-cards td[data-label="Acciones"]::before {
+    flex: 1;
+  }
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 18px;
-  }
+  h1 { font-size: 18px; }
+  h2 { font-size: 15px; }
 
-  h2 {
-    font-size: 15px;
-  }
-
-  section {
-    padding: 14px;
-  }
-
-  fieldset {
-    padding: 16px;
-  }
+  section { padding: 14px; }
+  fieldset { padding: 16px; }
 
   .tabla-cards td {
     flex-direction: column;
@@ -494,4 +674,7 @@ footer p {
   .tabla-cards td::before {
     flex: none;
   }
+
+  .stat-valor { font-size: 22px; }
+  .stat-label { font-size: 11px; }
 }

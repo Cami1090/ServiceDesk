@@ -1,13 +1,14 @@
 /* ===========================================================
-   registro.js · Guarda nuevas solicitudes en el almacén
+   registro.js · Guarda nuevas solicitudes (módulo ES)
    =========================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  const form    = document.getElementById('form-registro');
-  const mensaje = document.getElementById('mensaje-registro');
-  const fecha   = document.getElementById('fecha');
+import { agregarSolicitud } from './data.js';
 
-  /* Fecha por defecto: hoy */
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('form-registro');
+  const mensaje = document.getElementById('mensaje-registro');
+  const fecha = document.getElementById('fecha');
+
   if (fecha && !fecha.value) {
     fecha.value = new Date().toISOString().split('T')[0];
   }
@@ -16,13 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
 
     const datos = {
-      titulo:      form.titulo.value.trim(),
+      titulo: form.titulo.value.trim(),
       solicitante: form.nombre.value.trim(),
-      categoria:   form.categoria.value,
-      prioridad:   form.prioridad.value,
+      categoria: form.categoria.value,
+      prioridad: form.prioridad.value,
       responsable: 'Sin asignar',
-      estado:      'abierta',
-      fecha:       form.fecha.value
+      estado: 'abierta',
+      fecha: form.fecha.value
     };
 
     const nueva = agregarSolicitud(datos);
