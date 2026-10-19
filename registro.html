@@ -15,46 +15,37 @@
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="registro.html">Registrar solicitud</a></li>
-        <li><a href="asignacion.html">Asignación</a></li>
-        <li><a href="seguimiento.html">Seguimiento</a></li>
+        <li class="nav-registro"><a href="registro.html">Registrar solicitud</a></li>
+        <li class="nav-asignacion" hidden><a href="asignacion.html">Asignación</a></li>
+        <li class="nav-tecnico" hidden><a href="tecnico.html">Mis Asignaciones</a></li>
+        <li class="nav-seguimiento" hidden><a href="seguimiento.html">Seguimiento</a></li>
+        <li class="nav-admin" hidden><a href="admin.html">Admin</a></li>
       </ul>
     </nav>
     <div class="auth-panel">
       <span id="auth-usuario" class="auth-usuario" hidden></span>
-      <button id="auth-login" class="btn-auth" type="button">Iniciar sesión con Google</button>
       <button id="auth-logout" class="btn-auth btn-auth-salir" type="button" hidden>Cerrar sesión</button>
     </div>
   </header>
 
   <main>
-
     <section>
       <h1>Registrar una nueva solicitud de soporte</h1>
       <p>Diligencia el formulario con la información del incidente o requerimiento.</p>
     </section>
 
     <section>
-      <form id="form-registro" action="#" method="post">
-
+      <form id="form-registro">
         <fieldset>
           <legend>Datos del solicitante</legend>
           <div class="form-grid">
             <div class="form-group">
               <label for="nombre">Nombre completo</label>
-              <input type="text" id="nombre" name="nombre" required placeholder="Ingrese su nombre">
+              <input type="text" id="nombre" name="nombre" readonly placeholder="Cargando datos...">
             </div>
             <div class="form-group">
               <label for="correo">Correo electrónico</label>
-              <input type="email" id="correo" name="correo" required placeholder="Ingrese su correo electronico">
-            </div>
-            <div class="form-group">
-              <label for="telefono">Teléfono</label>
-              <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su telefono">
-            </div>
-            <div class="form-group">
-              <label for="area">Área o dependencia</label>
-              <input type="text" id="area" name="area" placeholder="Ingrese su area o dependencia">
+              <input type="email" id="correo" name="correo" readonly placeholder="Cargando datos...">
             </div>
           </div>
         </fieldset>
@@ -95,10 +86,6 @@
               <label for="descripcion">Descripción del problema o requerimiento</label>
               <textarea id="descripcion" name="descripcion" rows="5" required></textarea>
             </div>
-            <div class="form-group full-width">
-              <label for="adjunto">Adjuntar evidencia</label>
-              <input type="file" id="adjunto" name="adjunto">
-            </div>
           </div>
         </fieldset>
 
@@ -106,11 +93,9 @@
           <button type="submit">Registrar solicitud</button>
           <button type="reset">Limpiar formulario</button>
         </div>
-
       </form>
       <p id="mensaje-registro" class="mensaje mensaje-exito" hidden></p>
     </section>
-
   </main>
 
   <footer>

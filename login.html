@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServiceDesk · Iniciar Sesión</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <main class="login-container">
+    <div class="login-card">
+      <h1>ServiceDesk</h1>
+      <p>Sistema de gestión de solicitudes de soporte</p>
+      
+      <button id="auth-login" class="btn-login-google" type="button">
+        Continuar con Google
+      </button>
+      
+      <p id="mensaje-login" class="mensaje mensaje-error" hidden></p>
+    </div>
+  </main>
+
+  <!-- SDK de Supabase y script de login -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+  <script type="module" src="login.js"></script>
+</body>
+</html>

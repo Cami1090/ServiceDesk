@@ -1,78 +1,45 @@
-/* ===========================================================
-   seguimiento.js · Render + filtros dinámicos (módulo ES)
-   =========================================================== */
+import { cargarSolicitudes, etiqueta, formatearId } from './data.js';
 
-import { cargarSolicitudes, etiqueta } from './data.js';
+document.addEventListener('DOMContentLoaded', async () => {
+  const tbody = document.getElementById('tbody-solicitudes');
+  const form = document.getElementById('form-filtros');
+  const fEstado = document.getElementById('filtro-estado');
+  const fCat = document.getElementById('filtro-categoria');
+  const fPrior = document.getElementById('filtro-prioridad');
+  const fResp = document.getElementById('filtro-responsable');
+  const btnLimpiar = document.getElementById('btn-limpiar-filtros');
+  const contador = document.getElementById('contador-resultados');
 
-document.addEventListener('DOMContentLoaded', () => {
-  const tbody             = document.getElementById('tbody-solicitudes');
-  const formFiltros       = document.getElementById('form-filtros');
-  const filtroEstado      = document.getElementById('filtro-estado');
-  const filtroCategoria   = document.getElementById('filtro-categoria');
-  const filtroPrioridad   = document.getElementById('filtro-prioridad');
-  const filtroResponsable = document.getElementById('filtro-responsable');
-  const btnLimpiar        = document.getElementById('btn-limpiar-filtros');
-  const contador          = document.getElementById('contador-resultados');
+  const solicitudes = await cargarSolicitudes();
 
-  const solicitudes = cargarSolicitudes();
-
-  function renderizar() {
-    const estado      = filtroEstado.value;
-    const categoria   = filtroCategoria.value;
-    const prioridad   = filtroPrioridad.value;
-    const responsable = filtroResponsable.value.trim().toLowerCase();
-
+  function render() {
     const filtradas = solicitudes.filter(s => {
-      if (estado !== 'todas' && s.estado !== estado) return false;
-      if (categoria !== 'todas' && s.categoria !== categoria) return false;
-      if (prioridad !== 'todas' && s.prioridad !== prioridad) return false;
-      if (responsable && !String(s.responsable).toLowerCase().includes(responsable)) return false;
+      if (fEstado.value !== 'todas' && s.estado !== fEstado.value) return false;
+      if (fCat.value !== 'todas' && s.categoria !== fCat.value) return false;
+      if (fPrior.value !== 'todas' && s.prioridad !== fPrior.value) return false;
+      if (fResp.value.trim() && !(s.responsable_nombre || '').toLowerCase().includes(fResp.value.toLowerCase())) return false;
       return true;
     });
 
-    tbody.innerHTML = '';
+    tbody.innerHTML = filtradas.map(s => `
+      <tr>
+        <td data-label="ID">${formatearId(s.id)}</td>
+        <td data-label="Solicitante">${s.solicitante_nombre}</td>
+        <td data-label="Categoría">${etiqueta('categoria', s.categoria)}</td>
+        <td data-label="Prioridad">${etiqueta('prioridad', s.prioridad)}</td>
+        <td data-label="Responsable">${s.responsable_nombre || 'Sin asignar'}</td>
+        <td data-label="Estado">${etiqueta('estado', s.estado)}</td>
+        <td data-label="Fecha">${s.fecha}</td>
+        <td data-label="Detalle"><a href="detalle.html?id=${s.id}">Ver</a></td>
+      </tr>
+    `).join('');
 
-    if (!filtradas.length) {
-      const tr = document.createElement('tr');
-      tr.className = 'sin-resultados';
-      const td = document.createElement('td');
-      td.colSpan = 8;
-      td.textContent = 'No hay solicitudes que coincidan con los filtros.';
-      tr.appendChild(td);
-      tbody.appendChild(tr);
-    } else {
-      filtradas.forEach(s => {
-        const tr = document.createElement('tr');
-        tr.innerHTML =
-          '<td data-label="ID">' + s.id + '</td>' +
-          '<td data-label="Solicitante">' + s.solicitante + '</td>' +
-          '<td data-label="Categoría">' + etiqueta('categoria', s.categoria) + '</td>' +
-          '<td data-label="Prioridad">' + etiqueta('prioridad', s.prioridad) + '</td>' +
-          '<td data-label="Responsable">' + s.responsable + '</td>' +
-          '<td data-label="Estado">' + etiqueta('estado', s.estado) + '</td>' +
-          '<td data-label="Última actualización">' + s.fecha + '</td>' +
-          '<td data-label="Detalle"><a href="detalle.html?id=' + encodeURIComponent(s.id) + '">Ver</a></td>';
-        tbody.appendChild(tr);
-      });
-    }
-
-    contador.textContent = filtradas.length + ' de ' + solicitudes.length + ' solicitudes';
+    contador.textContent = `${filtradas.length} de ${solicitudes.length} solicitudes`;
   }
 
-  formFiltros.addEventListener('submit', e => {
-    e.preventDefault();
-    renderizar();
-  });
-
-  [filtroEstado, filtroCategoria, filtroPrioridad].forEach(el => {
-    el.addEventListener('change', renderizar);
-  });
-  filtroResponsable.addEventListener('input', renderizar);
-
-  btnLimpiar.addEventListener('click', () => {
-    formFiltros.reset();
-    renderizar();
-  });
-
-  renderizar();
+  form.addEventListener('submit', e => { e.preventDefault(); render(); });
+  [fEstado, fCat, fPrior].forEach(el => el.addEventListener('change', render));
+  fResp.addEventListener('input', render);
+  btnLimpiar.addEventListener('click', () => { form.reset(); render(); });
+  render();
 });

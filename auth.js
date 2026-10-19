@@ -1,132 +1,67 @@
-/* ===========================================================
-   auth.js · Login con Google usando Supabase Auth
-   =========================================================== */
+import { cliente, usuarioActual, perfilActual } from './supabase-client.js';
 
-import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from './config.js';
-
-
-const btnLogin = document.getElementById('auth-login');
 const btnLogout = document.getElementById('auth-logout');
 const usuarioSpan = document.getElementById('auth-usuario');
 
-
-const protocoloOk = window.location.protocol === 'http:' || window.location.protocol === 'https:';
-const noEsIframe = window.top === window.self;
-const configOk = !SUPABASE_URL.includes('TU_PROYECTO')
-  && !SUPABASE_PUBLISHABLE_KEY.includes('PEGA_AQUI');
-
-let cliente = null;
-
-/* ---------- UI ---------- */
-
-function mostrarUsuario(user) {
-  const haySesion = Boolean(user);
-
+function mostrarUsuario(user, perfil) {
   if (usuarioSpan) {
-    usuarioSpan.textContent = haySesion ? (user.email || user.id) : '';
-    usuarioSpan.hidden = !haySesion;
+    usuarioSpan.textContent = user ? `${perfil?.nombre || user.email} (${perfil?.role || 'usuario'})` : '';
+    usuarioSpan.hidden = !user;
   }
-  if (btnLogin) btnLogin.hidden = haySesion;
-  if (btnLogout) btnLogout.hidden = !haySesion;
-}
+  if (btnLogout) btnLogout.hidden = !user;
 
-function deshabilitarLogin(mensaje) {
-  if (!btnLogin) return;
-  btnLogin.disabled = true;
-  btnLogin.title = mensaje;
-  btnLogin.textContent = 'Login no disponible';
-}
+  const rol = perfil?.role || 'usuario';
+  
+  // 1. Ocultamos TODAS las opciones dinámicas primero
+  document.querySelectorAll('.nav-admin, .nav-asignacion, .nav-tecnico, .nav-registro, .nav-seguimiento')
+    .forEach(el => el.hidden = true);
 
-/* ---------- Inicialización ---------- */
+  // 2. Mostramos según el rol
+  if (rol === 'admin') {
+    document.querySelectorAll('.nav-admin, .nav-asignacion, .nav-tecnico, .nav-registro, .nav-seguimiento')
+      .forEach(el => el.hidden = false);
+  } else if (rol === 'tecnico') {
+    // El técnico solo ve "Mis Asignaciones"
+    document.querySelectorAll('.nav-tecnico').forEach(el => el.hidden = false);
+  } else {
+    // El usuario normal ve Registrar y Seguimiento (sus propios tickets)
+    document.querySelectorAll('.nav-registro, .nav-seguimiento').forEach(el => el.hidden = false);
+  }
+}
 
 async function iniciar() {
-  if (!protocoloOk || !noEsIframe) {
-    console.warn('[auth] Abre la app con Live Server en una pestaña normal.');
-    deshabilitarLogin('Usa Live Server en una pestaña normal.');
+  const user = await usuarioActual();
+  const isLoginPage = window.location.pathname.endsWith('login.html');
+
+  if (!user && !isLoginPage) {
+    window.location.href = 'login.html';
     return;
   }
 
-  if (!configOk) {
-    console.warn('[auth] Configura config.js con tu URL y clave de Supabase.');
-    deshabilitarLogin('Configura config.js con tus credenciales.');
+  if (user && isLoginPage) {
+    window.location.href = 'index.html';
     return;
   }
 
-  if (!window.supabase) {
-    console.warn('[auth] El SDK de Supabase no se cargó (revisa el CDN).');
-    deshabilitarLogin('El SDK de Supabase no se cargó.');
-    return;
+  if (user) {
+    const perfil = await perfilActual();
+    mostrarUsuario(user, perfil);
   }
 
-  /* URL de retorno: debe estar autorizada en Supabase */
-  const retorno = window.location.origin + window.location.pathname;
-
-  cliente = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-    auth: {
-      flowType: 'implicit',
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
+  cliente.auth.onAuthStateChange(async (evento, sesion) => {
+    if (evento === 'SIGNED_OUT') {
+      window.location.href = 'login.html';
+    } else if (evento === 'SIGNED_IN') {
+      const p = await perfilActual();
+      mostrarUsuario(sesion.user, p);
     }
   });
-
-  /* Escucha los cambios de sesión (login, logout, refresh) */
-  cliente.auth.onAuthStateChange((evento, sesion) => {
-    mostrarUsuario(sesion ? sesion.user : null);
-
-    if (evento === 'SIGNED_IN') console.log('[auth] Sesión iniciada');
-    if (evento === 'SIGNED_OUT') console.log('[auth] Sesión cerrada');
-  });
-
-  /* ---------- Login ---------- */
-
-  if (btnLogin) {
-    btnLogin.addEventListener('click', async () => {
-      btnLogin.disabled = true;
-      btnLogin.textContent = 'Conectando…';
-
-      try {
-        const { error } = await cliente.auth.signInWithOAuth({
-          provider: 'google',
-          options: { redirectTo: retorno }
-        });
-        if (error) throw error;
-      } catch (error) {
-        console.error('[auth] No se pudo iniciar OAuth:', error.message);
-        alert('No se pudo iniciar sesión con Google: ' + error.message);
-      } finally {
-        btnLogin.disabled = false;
-        btnLogin.textContent = 'Iniciar sesión con Google';
-      }
-    });
-  }
-
-  /* ---------- Logout ---------- */
 
   if (btnLogout) {
     btnLogout.addEventListener('click', async () => {
       btnLogout.disabled = true;
-      try {
-        const { error } = await cliente.auth.signOut({ scope: 'local' });
-        if (error) throw error;
-        mostrarUsuario(null);
-      } catch (error) {
-        console.error('[auth] No se pudo cerrar sesión:', error.message);
-        alert('No se pudo cerrar sesión: ' + error.message);
-      } finally {
-        btnLogout.disabled = false;
-      }
+      await cliente.auth.signOut({ scope: 'local' });
     });
-  }
-
-  /* ---------- Comprobar sesión al cargar ---------- */
-
-  try {
-    const { data, error } = await cliente.auth.getUser();
-    if (error && error.name !== 'AuthSessionMissingError') throw error;
-    mostrarUsuario(data.user || null);
-  } catch (error) {
-    console.warn('[auth] No se pudo comprobar la sesión:', error.message);
   }
 }
 

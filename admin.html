@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServiceDesk · Panel de Administración</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="brand-group">
+      <p>ServiceDesk</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li class="nav-registro"><a href="registro.html">Registrar solicitud</a></li>
+        <li class="nav-asignacion" hidden><a href="asignacion.html">Asignación</a></li>
+        <li class="nav-tecnico" hidden><a href="tecnico.html">Mis Asignaciones</a></li>
+        <li class="nav-seguimiento" hidden><a href="seguimiento.html">Seguimiento</a></li>
+        <li class="nav-admin" hidden><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+    <div class="auth-panel">
+      <span id="auth-usuario" class="auth-usuario" hidden></span>
+      <button id="auth-logout" class="btn-auth btn-auth-salir" type="button" hidden>Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h1>Panel de Administración</h1>
+      <p>Gestiona los roles de los usuarios registrados. Solo los técnicos pueden asignarse a solicitudes.</p>
+      <p id="mensaje-admin" class="mensaje mensaje-exito" hidden></p>
+    </section>
+
+    <section>
+      <h2>Usuarios registrados</h2>
+      <div class="table-container">
+        <table class="tabla-cards">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-usuarios"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>ServiceDesk · Juan Esteban Arias y Camilo Forero</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

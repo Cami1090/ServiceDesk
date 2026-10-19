@@ -1,154 +1,61 @@
-/* ===========================================================
-   detalle.js · Detalle, avances y cierre (módulo ES)
-   =========================================================== */
+import { obtenerSolicitudPorId, cargarHistorial, agregarAvance, cerrarSolicitud, etiqueta, formatearId } from './data.js';
+import { esStaff } from './supabase-client.js';
 
-import {
-  obtenerSolicitudPorId,
-  actualizarSolicitud,
-  agregarAvance,
-  etiqueta
-} from './data.js';
+document.addEventListener('DOMContentLoaded', async () => {
+  const id = parseInt(new URLSearchParams(window.location.search).get('id'), 10);
+  const h1 = document.getElementById('detalle-titulo');
+  const tbody = document.getElementById('tbody-datos');
+  const lista = document.getElementById('lista-historial');
+  const formAvance = document.getElementById('form-avance');
+  const formCierre = document.getElementById('form-cierre');
+  const msg = document.getElementById('mensaje-detalle');
+  const seccionAvance = document.getElementById('seccion-avance');
+  const seccionCierre = document.getElementById('seccion-cierre');
 
-document.addEventListener('DOMContentLoaded', () => {
+  async function render() {
+    const s = await obtenerSolicitudPorId(id);
+    if (!s) return h1.textContent = 'No encontrada';
+    h1.textContent = `Detalle ${formatearId(s.id)}`;
 
-  const params = new URLSearchParams(window.location.search);
-  const id     = params.get('id') || '';
+    tbody.innerHTML = `
+      <tr><th>Título</th><td>${s.titulo}</td></tr>
+      <tr><th>Solicitante</th><td>${s.solicitante_nombre}</td></tr>
+      <tr><th>Categoría</th><td>${etiqueta('categoria', s.categoria)}</td></tr>
+      <tr><th>Estado</th><td>${etiqueta('estado', s.estado)}</td></tr>
+      <tr><th>Responsable</th><td>${s.responsable_nombre || 'Sin asignar'}</td></tr>
+      ${s.cerrado_por_nombre ? `<tr><th>Cerrada por</th><td>${s.cerrado_por_nombre}</td></tr>` : ''}
+    `;
 
-  const h1               = document.getElementById('detalle-titulo');
-  const tbodyDatos       = document.getElementById('tbody-datos');
-  const listaHistorial   = document.getElementById('lista-historial');
-  const formAvance       = document.getElementById('form-avance');
-  const formCierre       = document.getElementById('form-cierre');
-  const mensajeDet       = document.getElementById('mensaje-detalle');
-  const fechaCierreInput = document.getElementById('fecha-cierre');
-  const seccionAvance    = document.getElementById('seccion-avance');
-  const seccionCierre    = document.getElementById('seccion-cierre');
+    const hist = await cargarHistorial(id);
+    lista.innerHTML = hist.map(h => `<li>${h.texto} <small>(${new Date(h.fecha).toLocaleDateString()} - ${h.autor_nombre})</small></li>`).join('');
 
-  /* ---------- Render ---------- */
-
-  function render() {
-    const s = id ? obtenerSolicitudPorId(id) : null;
-
-    if (!s) {
-      h1.textContent = 'Solicitud no encontrada';
-      tbodyDatos.innerHTML = '';
-      listaHistorial.innerHTML = '';
+    const staff = await esStaff();
+    if (!staff || s.estado === 'cerrada') {
       seccionAvance.hidden = true;
       seccionCierre.hidden = true;
-
-      const cont = document.querySelector('main');
-      const aviso = document.createElement('section');
-      aviso.innerHTML =
-        '<h2>No hay ninguna solicitud con ese ID</h2>' +
-        '<p>Verifica el enlace o vuelve al listado de seguimiento.</p>' +
-        '<div class="acciones-form">' +
-          '<a href="seguimiento.html" class="btn-link">Volver al seguimiento</a>' +
-        '</div>';
-      cont.appendChild(aviso);
-      return;
-    }
-
-    h1.textContent = 'Detalle de la solicitud ' + s.id;
-
-    tbodyDatos.innerHTML =
-      '<tr><th scope="row">Título</th><td>'         + s.titulo + '</td></tr>' +
-      '<tr><th scope="row">Solicitante</th><td>'    + s.solicitante + '</td></tr>' +
-      '<tr><th scope="row">Categoría</th><td>'      + etiqueta('categoria', s.categoria) + '</td></tr>' +
-      '<tr><th scope="row">Prioridad</th><td>'      + etiqueta('prioridad', s.prioridad) + '</td></tr>' +
-      '<tr><th scope="row">Responsable</th><td>'    + (s.responsable || 'Sin asignar') + '</td></tr>' +
-      '<tr><th scope="row">Equipo / Área</th><td>'  + (s.equipo || '—') + '</td></tr>' +
-      '<tr><th scope="row">Estado actual</th><td>'  + etiqueta('estado', s.estado) + '</td></tr>' +
-      '<tr><th scope="row">Fecha de reporte</th><td>' + s.fecha + '</td></tr>' +
-      (s.solucion
-        ? '<tr><th scope="row">Solución</th><td>' + s.solucion + '</td></tr>'
-        : '') +
-      (s.fechaCierre
-        ? '<tr><th scope="row">Fecha de cierre</th><td>' + s.fechaCierre + '</td></tr>'
-        : '') +
-      (s.satisfaccion
-        ? '<tr><th scope="row">Satisfacción</th><td>' + etiqueta('satisfaccion', s.satisfaccion) + '</td></tr>'
-        : '');
-
-    listaHistorial.innerHTML = '';
-    const hist = s.historial || [];
-    if (!hist.length) {
-      listaHistorial.innerHTML = '<li>Sin eventos registrados</li>';
-    } else {
-      hist.forEach(h => {
-        listaHistorial.innerHTML +=
-          '<li>' + h.texto + ' <small>(' + h.fecha + ')</small></li>';
-      });
-    }
-
-    if (s.estado === 'cerrada') {
-      seccionAvance.hidden = true;
-      seccionCierre.hidden = true;
-      mensajeDet.textContent = 'Esta solicitud está cerrada. Solo lectura.';
-      mensajeDet.hidden = false;
+      msg.hidden = false;
+      msg.textContent = s.estado === 'cerrada' ? 'Solicitud cerrada.' : 'Solo lectura.';
     } else {
       seccionAvance.hidden = false;
       seccionCierre.hidden = false;
     }
   }
 
-  /* ---------- Guardar avance ---------- */
-
-  formAvance.addEventListener('submit', e => {
+  formAvance.addEventListener('submit', async e => {
     e.preventDefault();
-
-    const comentario  = formAvance.comentario.value.trim();
-    const nuevoEstado = formAvance['nuevo-estado'].value;
-
-    if (!comentario) return;
-
-    agregarAvance(id, comentario, nuevoEstado);
-
-    formAvance.reset();
-    mensajeDet.textContent = '✔ Avance guardado.';
-    mensajeDet.hidden = false;
-    render();
+    await agregarAvance(id, formAvance.comentario.value.trim(), formAvance['nuevo-estado'].value);
+    formAvance.reset(); await render();
   });
 
-  /* ---------- Cerrar solicitud ---------- */
-
-  formCierre.addEventListener('submit', e => {
+  formCierre.addEventListener('submit', async e => {
     e.preventDefault();
-
-    const solucion     = formCierre.solucion.value.trim();
-    const fechaCierre  = formCierre['fecha-cierre'].value;
-    const satisfaccion = formCierre.satisfaccion.value;
-
-    if (!solucion) return;
-
-    const s = obtenerSolicitudPorId(id);
-    if (!s) return;
-
-    const historial = s.historial || [];
-    historial.push({
-      fecha: fechaCierre,
-      texto: 'Solicitud cerrada. Solución: ' + solucion +
-             (satisfaccion ? ' · Satisfacción: ' + etiqueta('satisfaccion', satisfaccion) : '')
+    await cerrarSolicitud(id, {
+      solucion: formCierre.solucion.value.trim(),
+      fecha_cierre: formCierre['fecha-cierre'].value,
+      satisfaccion: formCierre.satisfaccion.value
     });
-
-    actualizarSolicitud(id, {
-      estado: 'cerrada',
-      solucion: solucion,
-      fechaCierre: fechaCierre,
-      satisfaccion: satisfaccion,
-      historial: historial
-    });
-
-    formCierre.reset();
-    mensajeDet.textContent = '✔ Solicitud cerrada correctamente.';
-    mensajeDet.hidden = false;
-    render();
+    formCierre.reset(); await render();
   });
-
-  /* ---------- Init ---------- */
-
-  if (fechaCierreInput && !fechaCierreInput.value) {
-    fechaCierreInput.value = new Date().toISOString().split('T')[0];
-  }
 
   render();
 });

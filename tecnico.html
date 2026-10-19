@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServiceDesk · Mis Asignaciones</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="brand-group">
+      <p>ServiceDesk</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li class="nav-registro"><a href="registro.html">Registrar solicitud</a></li>
+        <li class="nav-asignacion" hidden><a href="asignacion.html">Asignación</a></li>
+        <li class="nav-tecnico" hidden><a href="tecnico.html">Mis Asignaciones</a></li>
+        <li class="nav-seguimiento" hidden><a href="seguimiento.html">Seguimiento</a></li>
+        <li class="nav-admin" hidden><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+    <div class="auth-panel">
+      <span id="auth-usuario" class="auth-usuario" hidden></span>
+      <button id="auth-logout" class="btn-auth btn-auth-salir" type="button" hidden>Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h1>Mis Asignaciones</h1>
+      <p>Aquí están las solicitudes que tienes pendientes por resolver.</p>
+    </section>
+
+    <section>
+      <h2>Solicitudes a mi cargo</h2>
+      <div class="table-container">
+        <table class="tabla-cards">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Título</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Prioridad</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-asignadas"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>ServiceDesk · Juan Esteban Arias y Camilo Forero</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="tecnico.js"></script>
+</body>
+</html>
